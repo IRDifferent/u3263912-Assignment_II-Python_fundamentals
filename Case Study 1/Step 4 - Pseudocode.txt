@@ -1,0 +1,38 @@
+#Pseudocode sketch
+
+Selection[]
+
+BEGIN
+    MENU LOOP
+    show menu -> dict{}
+        If item selected
+            Add -> Selection[]
+        If remove requested
+            remove -> Selection[]
+        If item + item -> deal
+            Remove both items (price)
+            Add deal (price)
+        Payment
+            break loop
+    Discount
+        If yes
+            Student -> total - 5%
+            Goto payment
+        If no
+            Goto payment
+    If user -> Clear
+        Remove all items from Selection[]
+    Payment selected
+        If cash selected -> ask amount
+            amount received - total
+        If card
+            Send request and amount to eftpos
+    If payment accepted
+        Print receipt
+            Selection[] -> New line per item w/ quantity
+            Subtotal
+            tax (10%)
+    Elseif payment declined
+        Goto Payment
+        
+END
