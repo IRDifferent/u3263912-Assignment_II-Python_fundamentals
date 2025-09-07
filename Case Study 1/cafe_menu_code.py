@@ -1,4 +1,6 @@
-#Allows for the time.sleep() function for the card payment system
+#Stephen James | u3263912 | 07/09/2025 | Cafe POS System
+
+#Allows for the time.sleep() function for the card payment system to simulate waiting for the payment processing
 import time
 
 #Dictionary menu list
@@ -101,3 +103,4 @@ else:
 
 
 receipt_printout()
+
