@@ -3,7 +3,7 @@
 ## What is the project?
 This project contains 3 different case studies as part of the 2nd assignment relating to Python fundamentals for the 4478/8936 Intro to IT class.
 
-###Case study 1
+### Case study 1
 Is a simple POS system for a Cafe that utilises a dict to keep track of the menu items and prices. The POS can track items ordered, and keep a running total of the price.
 At the end of the transaction, if payment is successful, a receipt will be printed.
 
