@@ -25,13 +25,6 @@ total_price = 0
 #Only used to calculate the student discount, it it applies
 student_discount = 0
 
-#Prints the menu when the function starts
-print("Menu:")
-for key, value in menu_list.items(): #Loop to just print the items and values in the format I want it to be in, rather than the default mess
-    print(f"{key} | ${value:.2f}")
-print("\n")
-print("Please type ""Cart"" to view your cart.\n")
-
 #Runs the food order system - Allows items to be added to the items_ordered list, and adds the price to the total_price value
 def food_order():
     while True:
@@ -60,11 +53,15 @@ def payment():
         if payment_method == "Cash":
             cash_amount = input("How much cash was handed over? ")
             cash_change = float(cash_amount) - float(total_price) #Calculates how much change is due
-            print(f"Your change is ${cash_change:.2f}. Thanks for coming and enjoy your day!")
+            if cash_change < 0: #Goes back to the start of the payment function if the wrong amount is entered - Tells you how much short you are
+                print(f"Sorry, but I think you've handed me the wrong amount. You're short ${abs(cash_change):.2f}.")
+                continue
+            else:
+                print(f"Your change is ${cash_change:.2f}. Thanks for coming and enjoy your day!")
             break
         if payment_method == "Card":
             print("Please direct your attention to the eftpos machine for payment.")
-            time.sleep(10)
+            time.sleep(4) #Simulates card payment time
             payment_accepted = input("Payment accepted (Y/N)? ")
             if payment_accepted == "Y":
                 print("Thanks for coming, enjoy your day!")
@@ -79,17 +76,27 @@ def receipt_printout():
     for item in set(items_ordered): #Separates the list of items into quantities of each item
         item_quant = items_ordered.count(item)
         item_price = menu_list.get(item, 0) * item_quant  
-        print(f"{item_quant} x {item} ${item_price:.2f}")
+        print(f"{item_quant} x {item} ${menu_list.get(item, 0):.2f}ea") #Shows the amount of the item and the single price
+        print(f"            = ${item_price:.2f}") #Shows the total price of x amount of the item in the line
+        
     if student_discount >0: #Shows the student discount on the receipt if the discount is greater than 0
         print(f"Discounts: ${student_discount}")
     print(f"Subtotal: ${total_price:.2f}")
-    print(f"GST Incl: ${(total_price * 10 / 100):.2f}")
-          
+    print(f"GST Incl: ${(total_price * 10 / 100):.2f}") #Calculates and shows the GST included in the charge
+
+
+##Application start##
+
+#Prints the menu when the function starts
+print("Menu:")
+for key, value in menu_list.items(): #Loop to just print the items and values in the format I want it to be in, rather than the default mess python produces
+    print(f"{key} | ${value:.2f}")
+print("\n")
+print("Please type ""Cart"" to view your cart.\n")   
 
 food_order()
 
 print(f"Subtotal: ${total_price:.2f}")
-print(f"GST Incl: ${(total_price * 5 / 100):.2f}")
 student_status = input("\nAre you a student(Y/N)? ")#Student discount decision point
 if student_status == "Y":
     student_discount = total_price * 5 / 100 #Adds the student discount to the student_discount value if it applies
@@ -103,4 +110,3 @@ else:
 
 
 receipt_printout()
-
