@@ -1,8 +1,5 @@
 #Stephen James | u3263912 | 07/09/2025 | Cafe POS System
 
-#Allows for the time.sleep() function for the card payment system to simulate waiting for the payment processing
-import time
-
 #Dictionary menu list
 menu_list = {
     "Bacon & Egg roll" : 8.50,
@@ -61,7 +58,6 @@ def payment():
             break
         if payment_method == "Card":
             print("Please direct your attention to the eftpos machine for payment.")
-            time.sleep(4) #Stretch to simulate card payment timing
 
             while True:
                 payment_accepted = input("Payment accepted (Y/N)? ")
@@ -118,3 +114,4 @@ else:
 
 
 receipt_printout() #Calls the receipt function
+
