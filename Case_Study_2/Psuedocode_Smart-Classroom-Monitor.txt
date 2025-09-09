@@ -1,0 +1,58 @@
+##Psuedocode sketch
+
+START
+
+Check equip status
+    If OK
+        Continue
+    Else
+        Send alert -> IT team
+        Display warning
+
+Check temp
+    Is temp <16 or >28:
+        If yes
+            continue
+        else
+            Display warning
+            If user -> Exempt
+                Allow access
+            Else
+                Deny access
+
+Card Access
+    Is room count >30
+    Display count
+    If yes
+        User -> exempt?
+            Allow Access
+        Else
+            Deny access
+            Show error
+    If no
+        Allow access
+            unlock -> Door
+
+Door lock check
+    Has door been open >1min
+    If yes
+        Sound beep
+        continue
+    If no
+        Do nothing
+
+Room Capacity Count
+    If Card scan -> Outside
+    If access allowed
+        Room count +1
+    If Card scan -> Inside
+        Room count -1
+
+### Are the rooms booked in advanced? ###
+
+If room booking ended >15 minutes ago
+    Prompt for input
+    If no input
+        Clear room capacity count
+    else
+        Keep count
