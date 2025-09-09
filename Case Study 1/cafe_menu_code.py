@@ -42,7 +42,7 @@ def food_order():
             for item in set(items_ordered): #Same as used in the receipt to show the number of each item and the cost
                 item_quant = items_ordered.count(item)
                 item_price = menu_list.get(item, 0) * item_quant  
-                print(f"{item_quant} x {item} ${item_price:.2f}")
+                print(f"{item_quant} x {item} ${item_price:.2f}") #Shows the current count of menu items and the total cost
         else:
             print("Sorry, that item isn't on the menu")
 
@@ -61,14 +61,22 @@ def payment():
             break
         if payment_method == "Card":
             print("Please direct your attention to the eftpos machine for payment.")
-            time.sleep(4) #Simulates card payment time
-            payment_accepted = input("Payment accepted (Y/N)? ")
-            if payment_accepted == "Y":
-                print("Thanks for coming, enjoy your day!")
+            time.sleep(4) #Stretch to simulate card payment timing
+
+            while True:
+                payment_accepted = input("Payment accepted (Y/N)? ")
+                if payment_accepted == "Y":
+                    print("Thanks for coming, enjoy your day!")
+                    return
+                elif payment_accepted == "N": #Returns to payment if payment unsuccessful to be re-attempted
+                    print("Payment Declined, please try again")
+                    return payment()
+                else:
+                    print("Invalid input. Please enter 'Y' for yes, or 'N' for No.") #Error handling if the input is invalid
                 break
-            if payment_accepted == "N": #Returns to payment if payment unsuccessful to be re-attempted
-                print("Payment Declined, please try again")
-                return payment()
+        else:
+            print("That is not a valid option, please try again.")
+            return payment()
 
 def receipt_printout():
     value_food_menu = menu_list[items_ordered[0]]
@@ -76,7 +84,7 @@ def receipt_printout():
     for item in set(items_ordered): #Separates the list of items into quantities of each item
         item_quant = items_ordered.count(item)
         item_price = menu_list.get(item, 0) * item_quant  
-        print(f"{item_quant} x {item} ${menu_list.get(item, 0):.2f}ea") #Shows the amount of the item and the single price
+        print(f"{item_quant} x {item} ${menu_list.get(item, 0):.2f}ea") #Stretch - Shows the amount of the item and the single price
         print(f"            = ${item_price:.2f}") #Shows the total price of x amount of the item in the line
         
     if student_discount >0: #Shows the student discount on the receipt if the discount is greater than 0
@@ -94,7 +102,7 @@ for key, value in menu_list.items(): #Loop to just print the items and values in
 print("\n")
 print("Please type ""Cart"" to view your cart.\n")   
 
-food_order()
+food_order() #Calls the food_order function
 
 print(f"Subtotal: ${total_price:.2f}")
 student_status = input("\nAre you a student(Y/N)? ")#Student discount decision point
@@ -109,4 +117,4 @@ else:
     payment()
 
 
-receipt_printout()
+receipt_printout() #Calls the receipt function
