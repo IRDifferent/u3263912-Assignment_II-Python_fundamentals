@@ -29,6 +29,10 @@ Step 4: Implement the Solution
 Step 5: Test and Refine the Solution AI Agent Integration
 
 
-##References:
+## References:
 
+Case Study 1
 Response generated using OpenAI's ChatGPT to Stephen James, 15 August 2025, https://copilot.microsoft.com/shares/hgz6imHA8GGTogdrdK5Cj
+
+Case Study 2
+Response generated using Microsoft Co-Pilot to Stephen James, 10 September 2025, https://copilot.microsoft.com/shares/peAq52vJu6m1z4JqLSJ3d
