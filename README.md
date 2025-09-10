@@ -8,7 +8,9 @@ Is a simple POS system for a Cafe that utilises a dict to keep track of the menu
 At the end of the transaction, if payment is successful, a receipt will be printed.
 
 ### Case Study 2
-**Smart Classroom Monitor**
+Is a sample system to allow access into a classroom, log attendance, track if a teacher has swiped for access and update the unit for the room.
+This monitor also takes temperature inputs and denies access to the room (Unless authorised) if the temperature is outside of the defined range.
+Equipment status is also tracked - Checks if the computer and projector are working. If not working, it should contact IT to advise there is an issue.
 
 ### Case Study 3
 **Boolean Circuit Equivalence**
