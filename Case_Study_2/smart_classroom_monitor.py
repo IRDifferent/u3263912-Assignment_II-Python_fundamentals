@@ -40,15 +40,31 @@ def tempLog_print():
 ###        timeV = timeLog[i]
         print(f"timeV {tempV}°C") #Stretch - Prints the timestamp and the temp value - To add the timestamp, change timeV to {timeV}
 
-def attendancePrint():
-    currentUnit = roomState.get("class_unit", "Unknown") #Attempts to pull the current unit, if there is none, sets to unknown
-    print(f"Lecturer: {lecturer} | Unit: {currentUnit}") #Prints who the lecturer is and what unit they are teaching
-    print("\nStudents: ")
-    for i in range(len(attendance)): #Prints student attendance - new line per student name
-        print(f"{attendance[i]}")
-    if len(attendance) == 0: #If no students are in the list
-          print("No students registered in this classrom.")
+#Original attempt at printing the attendance report - The class_unit was printing <class : str> and I was unable to fix
+#Keeping this commented out for tracking purposes
+#def attendancePrint():
+#    currentUnit = roomState.get("class_unit", "Unknown") #Attempts to pull the current unit, if there is none, sets to unknown
+#    print(f"Lecturer: {lecturer} | Unit: {currentUnit}") #Prints who the lecturer is and what unit they are teaching
+#    print("\nStudents: ")
+#    for i in range(len(attendance)): #Prints student attendance - new line per student name
+#        print(f"{attendance[i]}")
+#    if len(attendance) == 0: #If no students are in the list
+#          print("No students registered in this classrom.")
 
+#Co-Pilots refinement - Outlined in Step 7
+def attendancePrint():
+    currentUnit = roomState.get("class_unit", "Unknown")
+    # Check if the value is actually a string, not the str type itself
+    if isinstance(currentUnit, type):
+        currentUnit = "Unknown"
+    print(f"Lecturer: {lecturer} | Unit: {currentUnit}")
+    print("\nStudents:")
+    if attendance:
+        for student in attendance:
+            print(student)
+    else:
+        print("No students registered in this classroom.")
+        
 #Checks the temperature - Denies access if outside of the defined range of between 16 and 28
 def tempCheck():
     while True:
@@ -108,7 +124,7 @@ def cardAccess():
 def projectorStatus(): #Asks for and tracks the state of the projecter
     projector_state = str
     while True:
-        projector_state = input("Is the projector working (Y)es or (N)o? ")
+        projector_state = input("Is the projector working (Y)es or (N)o? ").strip().upper()#.strip().upper() - AI suggestion - Outlined in step 7
         if projector_state == "Y":
             roomState["projector_status"] = True #Sets the roomState dict state to True
             print(f"Projector status: {roomState['projector_status']}")
@@ -120,12 +136,12 @@ def projectorStatus(): #Asks for and tracks the state of the projecter
             break
         else:
             print("Please input a valid response. ")
-            break
+            continue
             
 def computerStatus(): #Same as projector status, just for the state of the computer
     computer_state = str
     while True:
-        computer_state = input("Is the computer working (Y)es or (N)o? ")
+        computer_state = input("Is the computer working (Y)es or (N)o? ").strip().upper() #.strip().upper() - AI suggestion - Outlined in step 7
         if computer_state == "Y":
             roomState["computer_status"] = True #Sets the roomStatedict state to True
             break
@@ -137,16 +153,15 @@ def computerStatus(): #Same as projector status, just for the state of the compu
             print("Please input a valid response. ")
             continue
 
-def equipStatus(): #combines the Projector and Computer state functions together
-    projectorStatus()
-    computerStatus()
-    equipStatus_report()
-
 def equipStatus_report(): #Prints the state of each device
     projector = roomState.get("projector_status", "Unknown") #Sets the state to unknown if not true or false - Avoids KeyError
     computer = roomState.get("computer_status", "Unknown") #Sets the state to unknown if not true or false - Avoids KeyError
     print(f"Projector: {projector} | Computer: {computer}")
-    
+
+def equipStatus(): #combines the Projector and Computer state functions together
+    projectorStatus()
+    computerStatus()
+    equipStatus_report()  
 
 def statusReport(): #Pulls together all reports - Attendance, temperature, equipment and combines them so they can be pulled in one go
     print("IT Equipment Status:")
