@@ -13,7 +13,8 @@ This monitor also takes temperature inputs and denies access to the room (Unless
 Equipment status is also tracked - Checks if the computer and projector are working. If not working, it should contact IT to advise there is an issue.
 
 ### Case Study 3
-**Boolean Circuit Equivalence**
+I have taken the provided Boolean circuits and translated them into expressions and code.
+I have confirmed the outputs from the truth table within the code to be correct.
 
 
 ## Usage
